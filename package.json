@@ -1,0 +1,18 @@
+{
+  "name": "ethertron",
+  "version": "0.0.0",
+  "description": "Manage ethereum accounts and generate transactions offline.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kensedgwick@hotmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "keccak": "^1.4.0",
+    "rlp": "^2.0.0",
+    "scrypt": "^6.0.3",
+    "secp256k1": "^3.5.0",
+    "utils-numstr": "^1.1.0"
+  }
+}
