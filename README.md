@@ -57,6 +57,9 @@ New account successfully created!
 Alternatively, you can create an account with a private key obtained from a text file:
 
 ```
+> cat ..\keystore\privatekey.txt
+0x00000005 00000005 00000005 00000005 00000005 00000005 00000005 00000005
+
 > node .\create_acct.js ..\keystore\new.acct --getkey ..\keystore\privatekey.txt
 
 Warning! Existing file will be overwritten: ..\keystore\new.acct
