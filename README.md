@@ -165,11 +165,9 @@ const txParams = {
 module.exports = txParams;
 ```
 
-* The 'to' address will be rejected if its checksum is invalid.  To circumvent the checksum, use all upper-case or all lower-case letters.  
-* If invalid units are chosen, a list of acceptable units will be displayed.
-* If an invalid character encoding is chosen, a list of acceptable encodings will be displayed.
+Modify each field of the transaction file as desired.  The `to` address will be rejected if its checksum is invalid.  To circumvent the checksum, use all upper-case or all lower-case letters.  If invalid units are chosen, a list of acceptable units will be displayed.  If an invalid character encoding is chosen, a list of acceptable encodings will be displayed.
 
-Once the transaction parameters are set to their desired values, the transaction can be signed:
+Once the transaction parameters are set, the transaction can be signed:
 
 ```
 > node .\sign_tx.js .\tx_params.js ..\keystore\new.acct
