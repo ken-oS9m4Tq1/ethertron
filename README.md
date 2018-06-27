@@ -217,6 +217,8 @@ Options:
 
 ```
 
+To update an account password, use `change_passcode.js`:
+
 ```
 > node .\change_passcode.js ..\keystore\new.acct
 
@@ -233,6 +235,8 @@ New password:             *****
 Passcode successfully updated!
 
 ```
+
+A new keyfile can be specified using the `--keyfilenew` option.  Using the `--iternew` option you can specify a non-default number of hash iterations.  This will alter the number of times the new keyfile is hashed before it is combined with the account password.  If you use this option to customize the number of iterations, you will need to supply the iteration count along with the keyfile each time you access the account.
 
 ### display an account address
 
@@ -295,6 +299,8 @@ Options:
 
 ```
 
+If no hash algorithm is supplied in the command line, you will be prompted to select one:
+
 ```
 > node .\hash_file.js ..\keyfiles\secret.key
 
@@ -354,7 +360,7 @@ sha512 hash of file ..\keyfiles\secret.key:
 
 ```
 
-The hash algorithm can alternatively be supplied in the command line:
+The hash algorithm can alternatively be supplied using the `--hash` option:
 
 ```
 > node .\hash_file.js ..\keyfiles\secret.key --hash sha512
