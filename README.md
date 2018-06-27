@@ -79,7 +79,7 @@ New account successfully created!
 
 When obtaining a private key from a file, the script will ignore any whitespace.  Including a `0x` header is optional.
 
-Account files are secured with a password and, optionally, an arbitrary keyfile that acts as a second authentication factor.  To specify a keyfile, use the `--keyfile` option:
+Account files are secured with a password and, optionally, an arbitrary keyfile that acts as a second authentication factor.  The password and keyfile are combined to form a composite passcode which is then sent to a key derivation function (scrypt or pbkdf2).  An account secured with a keyfile will be inaccessible if the keyfile is lost.  To specify a keyfile, use the `--keyfile` option:
 
 ```
 > node .\create_acct.js ..\keystore\new.acct --getkey ..\keystore\privatekey.txt --keyfile ..\keyfiles\secret.key
@@ -103,7 +103,7 @@ New account successfully created!
 
 ```
 
-The password and keyfile are combined to form a composite passcode which is then sent to a key derivation function (scrypt or pbkdf2).  An account secured with a keyfile will be inaccessible if the keyfile is lost.
+
 
 The password can alternatively be supplied from the command line:
 
