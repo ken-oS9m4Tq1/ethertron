@@ -163,7 +163,7 @@ const txParams = {
 module.exports = txParams;
 ```
 
-Modify each field of the transaction file as desired.  The `to` address will be rejected if its checksum is invalid.  To circumvent the checksum, use all upper-case or all lower-case letters.  If invalid units are chosen, a list of acceptable units will be displayed.  If an invalid character encoding is chosen, a list of acceptable encodings will be displayed.
+Modify each field of the transaction file as desired.  The `to` address will be rejected if its <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-55.md">checksum</a> is invalid.  To circumvent the checksum, use all upper-case or all lower-case letters.  If invalid units are chosen, a list of acceptable units will be displayed.  If an invalid character encoding is chosen, a list of acceptable encodings will be displayed.
 
 Once the transaction parameters are set, the transaction can be signed:
 
