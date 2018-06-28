@@ -5,6 +5,7 @@ const say = console.log;
 const path = require('path');
 
 const create_acct = require('./create_acct');
+const get_template = require('./get_template');
 const sign_tx = require('./sign_tx');
 const change_passcode = require('./change_passcode');
 const get_address = require('./get_address');
@@ -15,7 +16,7 @@ const hash_file = require('./hash_file');
 **
 */
 function printUsage() {
-  say('\nUsage:', path.basename(process.argv[1], '.js'), '<command> [options]');
+  say('\nUsage:', path.basename(process.argv[1], '.js'), '<command> <args> [options]');
 }
 
 /* Print script help to screen.
@@ -26,8 +27,9 @@ function printHelp() {
 
   say('\nAvailable commands:');
   say('create          - Create a new account.');
-  say('sign            - Sign a transaction.');
   say('update          - Update the passcode for an account.');
+  say('template        - Create a transaction template.');
+  say('sign            - Sign a transaction.');
   say('getaddress      - Display the address of an account.');
   say('getkey          - Display the private key of an account.');
   say('hash            - Get the hash of a file.');
@@ -42,6 +44,10 @@ function main() {
     case 'create':
     case 'ca':
       create_acct.main();
+      break;
+    case 'template':
+    case 'gt':
+      get_template.main();
       break;
     case 'sign':
     case 'st':
