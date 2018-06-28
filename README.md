@@ -200,7 +200,7 @@ Options:
 
 ```
 
-Having created a transaction file `tx.js`, it can be signed using the account `new.acct`:
+Once a transaction file has been created, it can be signed using any account:
 
 ```
 > ethertron sign tx.js new.acct
