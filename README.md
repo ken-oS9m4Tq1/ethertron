@@ -5,26 +5,37 @@ Basic command line tools for managing ethereum accounts and generating transacti
 ## install
 
 ```
-npm i ethertron
+npm i -g ethertron
 ```
 
 ## command line interface
 
-Each command is its own script.  Any command can be called with the option `--help` to display usage and options.  The available commands are:
+Calling `ethertron` with no arguments displays usage and a list of commands:
 
-* `create_acct.js`
-* `sign_tx.js`
-* `change_passcode.js`
-* `get_address.js`
-* `get_priv.js`
-* `hash_file.js`
+```
+> ethertron
+
+Usage: ethertron <command> <args> [options]
+
+Available commands:
+create          - Create a new account.
+update          - Update the passcode for an account.
+template        - Create a transaction template.
+sign            - Sign a transaction.
+getaddress      - Display the address of an account.
+getkey          - Display the private key of an account.
+hashfile        - Get the hash of a file.
+
+Use the option --help with any command for specific instructons.
+
+```
 
 ### create an account
 
 ```
-> node .\create_acct.js --help
+> ethertron create --help
 
-Usage: node.exe create_acct.js <file> [options]
+Usage: ethertron create <file> [options]
 
 Options:
 --help              - Displays this guide.
@@ -38,13 +49,13 @@ Options:
 You can create an account with a randomly generated private key:
 
 ```
-> node .\create_acct.js ..\keystore\new.acct
+> ethertron create new.acct
 
 Enter password:
 Confirm password:
 
 New account parameters:
-Account file:        ..\keystore\new.acct
+Account file:        new.acct
 Password:            *****
 
 Address:
@@ -57,21 +68,21 @@ New account successfully created!
 Alternatively, you can create an account with a private key obtained from a text file:
 
 ```
-> cat ..\keystore\privatekey.txt
+> cat privatekey.txt
 0x00000005 00000005 00000005 00000005 00000005 00000005 00000005 00000005
 
-> node .\create_acct.js ..\keystore\new.acct --getkey ..\keystore\privatekey.txt
+> ethertron create new.acct --getkey privatekey.txt
 
-Warning! Existing file will be overwritten: ..\keystore\new.acct
+Warning! Existing file will be overwritten: new.acct
 Continue? (y/N) y
 
 Enter password:
 Confirm password:
 
 New account parameters:
-Account file:        ..\keystore\new.acct
+Account file:        new.acct
 Password:            *****
-Private key from:    ..\keystore\privatekey.txt
+Private key from:    privatekey.txt
 
 Address:
 0x71eF4E39Afc13fd0dcEBC0659e9004E4ea51f4cC
@@ -85,19 +96,19 @@ When obtaining a private key from a file, the script will ignore any whitespace.
 In addition to a password, an account can optionally be secured with an arbitrary keyfile that acts as a second authentication factor.  The password and keyfile are combined to form a composite passcode which is then sent to a key derivation function.  An account secured with a keyfile will be inaccessible if the keyfile is lost.  To specify a keyfile, use the `--keyfile` option:
 
 ```
-> node .\create_acct.js ..\keystore\new.acct --getkey ..\keystore\privatekey.txt --keyfile ..\keyfiles\secret.key
+> ethertron create new.acct --getkey privatekey.txt --keyfile secret.key
 
-Warning! Existing file will be overwritten: ..\keystore\new.acct
+Warning! Existing file will be overwritten: new.acct
 Continue? (y/N) y
 
 Enter password:
 Confirm password:
 
 New account parameters:
-Account file:        ..\keystore\new.acct
+Account file:        new.acct
 Password:            *****
-Keyfile:             ..\keyfiles\secret.key
-Private key from:    ..\keystore\privatekey.txt
+Keyfile:             secret.key
+Private key from:    privatekey.txt
 
 Address:
 0x71eF4E39Afc13fd0dcEBC0659e9004E4ea51f4cC
@@ -109,15 +120,15 @@ New account successfully created!
 The password can alternatively be supplied from the command line:
 
 ```
-> node .\create_acct.js ..\keystore\new.acct --getkey ..\keystore\privatekey.txt --pass 123456
+> ethertron create new.acct --getkey privatekey.txt --pass 123456
 
-Warning! Existing file will be overwritten: ..\keystore\new.acct
+Warning! Existing file will be overwritten: new.acct
 Continue? (y/N) y
 
 New account parameters:
-Account file:        ..\keystore\new.acct
+Account file:        new.acct
 Password:            *****
-Private key from:    ..\keystore\privatekey.txt
+Private key from:    privatekey.txt
 
 Address:
 0x71eF4E39Afc13fd0dcEBC0659e9004E4ea51f4cC
@@ -126,29 +137,34 @@ New account successfully created!
 
 ```
 
-### sign a transaction
+### create a transaction
 
 ```
-> node .\sign_tx.js --help
+> ethertron template --help
 
-Usage: node.exe sign_tx.js <txFile> <accountFile> [options]
+Usage: ethertron template [options]
 
 Options:
---help                - Displays this guide.
---pass <string>       - Specify the account password.
---keyfile <file>      - Specify the account keyfile.
---nopass              - Force empty password.
---chainid <int>       - Specify a blockchain ID for the transaction. Program default is 1 (Ethereum mainnet).
---verbosity <int>     - Specify a verbosity in the range [-1, 2].
---verbose             - Force maximum verbosity.
---iter <int>          - Specify the number of hash iterations for the keyfile.
+--help              - Displays this guide.
+--file <file>       - Specify template filename. Program default is tx.js.
 
 ```
 
-To sign a transaction, first edit the transaction file `tx_params.js` containing the transaction parameters:
+To create a transaction, obtain a transaction file template:
 
 ```
-> cat .\tx_params.js
+> ethertron template
+
+Template file: tx.js
+
+Transaction template successfully created!
+
+```
+
+This creates a new transaction file `tx.js` with model transaction parameters:
+
+```
+> cat tx.js
 const txParams = {
   nonce: '0',
   to: '0xfBAf632D16bAd2da3C477e5Ec2044E2Cd104c27e', // 0x header optional.
@@ -163,12 +179,31 @@ const txParams = {
 module.exports = txParams;
 ```
 
-Modify each field of the transaction file as desired.  The `to` address will be rejected if its <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-55.md">checksum</a> is invalid.  To circumvent the checksum, use all upper-case or all lower-case letters.  If invalid units are chosen, a list of acceptable units will be displayed.  If an invalid character encoding is chosen, a list of acceptable encodings will be displayed.
+Modify each field of the transaction file as desired.  The `to` address will be rejected if its <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-55.md">checksum</a> is invalid.  To circumvent the checksum, use all upper-case or all lower-case letters.
 
-Once the transaction parameters are set, the transaction can be signed:
+### sign a transaction
 
 ```
-> node .\sign_tx.js .\tx_params.js ..\keystore\new.acct
+> ethertron sign --help
+
+Usage: ethertron sign <txFile> <accountFile> [options]
+
+Options:
+--help                - Displays this guide.
+--pass <string>       - Specify the account password.
+--keyfile <file>      - Specify the account keyfile.
+--nopass              - Force empty password.
+--chainid <int>       - Specify a blockchain ID for the transaction. Program default is 1 (Ethereum mainnet).
+--verbosity <int>     - Specify a verbosity in the range [-1, 2].
+--verbose             - Force maximum verbosity.
+--iter <int>          - Specify the number of hash iterations for the keyfile.
+
+```
+
+Having created a transaction file `tx.js`, it can be signed using the account `new.acct`:
+
+```
+> ethertron sign tx.js new.acct
 
 Enter password:
 
@@ -198,9 +233,9 @@ The signed transaction can be broadcast from a geth node or a third-party utilit
 ### change an account passcode
 
 ```
-> node .\change_passcode.js --help
+> ethertron update --help
 
-Usage: node.exe change_passcode.js <accountFile> [options]
+Usage: ethertron update <accountFile> [options]
 
 Options:
 --help              - Displays this guide.
@@ -220,7 +255,7 @@ Options:
 To update an account password, use `change_passcode.js`:
 
 ```
-> node .\change_passcode.js ..\keystore\new.acct
+> ethertron update new.acct
 
 Enter current password:
 
@@ -228,7 +263,7 @@ Specify new password:
 Confirm new password:
 
 Altered passcode parameters:
-Account file:             ..\keystore\new.acct
+Account file:             new.acct
 Previous password:        *****
 New password:             *****
 
@@ -241,9 +276,9 @@ A new keyfile can be specified using the `--keyfilenew` option.  Using the `--it
 ### display an account address
 
 ```
-> node .\get_address.js --help
+> ethertron getaddress --help
 
-Usage: node.exe get_address.js <accountFile> [options]
+Usage: ethertron getaddress <accountFile> [options]
 
 Options:
 --help   - Displays this guide.
@@ -251,9 +286,9 @@ Options:
 ```
 
 ```
-> node .\get_address.js ..\keystore\new.acct
+> ethertron getaddress new.acct
 
-Address for account ..\keystore\new.acct:
+Address for account new.acct:
 0x71eF4E39Afc13fd0dcEBC0659e9004E4ea51f4cC
 
 ```
@@ -261,9 +296,9 @@ Address for account ..\keystore\new.acct:
 ### get the private key of an account
 
 ```
-> node .\get_priv.js --help
+> ethertron getkey --help
 
-Usage: node.exe get_priv.js <accountFile> [options]
+Usage: ethertron getkey <accountFile> [options]
 
 Options:
 --help              - Displays this guide.
@@ -275,11 +310,11 @@ Options:
 ```
 
 ```
-> node .\get_priv.js ..\keystore\new.acct
+> ethertron getkey new.acct
 
 Enter password:
 
-Private key for account ..\keystore\new.acct:
+Private key for account new.acct:
 0x0000000500000005000000050000000500000005000000050000000500000005
 
 ```
@@ -287,9 +322,9 @@ Private key for account ..\keystore\new.acct:
 ### get the hash of a file
 
 ```
-> node .\hash_file.js --help
+> ethertron hashfile --help
 
-Usage: node.exe hash_file.js <file> [options]
+Usage: ethertron hashfile <file> [options]
 
 Options:
 --help              - Displays this guide.
@@ -302,7 +337,7 @@ Options:
 If no hash algorithm is supplied in the command line, you will be prompted to select one:
 
 ```
-> node .\hash_file.js ..\keyfiles\secret.key
+> ethertron hashfile secret.key
 
 Available hashes:
 
@@ -355,7 +390,7 @@ Available hashes:
 
 Index number of the desired algorithm: 39
 
-sha512 hash of file ..\keyfiles\secret.key:
+sha512 hash of file secret.key:
 0xbba1994e3e215cb698cbd3090f199fea85d33fd02c2e6d3cabcf9fcd258c9636b748d3f7ee6a3f56dfdfdff18c88e4b5b7f09424fdf2e1e602e9ae7a8e524ac1
 
 ```
@@ -363,9 +398,9 @@ sha512 hash of file ..\keyfiles\secret.key:
 The hash algorithm can alternatively be supplied using the `--hash` option:
 
 ```
-> node .\hash_file.js ..\keyfiles\secret.key --hash sha512
+> ethertron hashfile secret.key --hash sha512
 
-sha512 hash of file ..\keyfiles\secret.key:
+sha512 hash of file secret.key:
 0xbba1994e3e215cb698cbd3090f199fea85d33fd02c2e6d3cabcf9fcd258c9636b748d3f7ee6a3f56dfdfdff18c88e4b5b7f09424fdf2e1e602e9ae7a8e524ac1
 
 ```
