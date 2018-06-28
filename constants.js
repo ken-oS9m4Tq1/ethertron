@@ -96,6 +96,8 @@ const constants = {
   txFields: ['nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'data', 'v', 'r', 's'],
   // Index of the first command line argument, excluding identifiers.
   argShift: 3,
+  // Default transaction template filename.
+  defaultTemplate: 'tx.js',
 }
 
 

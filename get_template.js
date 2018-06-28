@@ -20,7 +20,7 @@ function printHelp() {
 
   say('\nOptions:');
   say('--help              - Displays this guide.');
-  say('--file <file>       - Specify template filename.');
+  say('--file <file>       - Specify template filename. Program default is ' + et.consts.defaultTemplate + '.');
 }
 
 /* Obtain arguments from the command line.
@@ -56,7 +56,7 @@ async function parseArgs(args) {
   //==========================================Optional: file
 
   // If no file was specified in the command line, assign a default.
-  if (args.file == undefined) args.file = 'tx.js';
+  if (args.file == undefined) args.file = et.consts.defaultTemplate;
 
   // If an existing file was specified in the command line, warn the user.
   if (fs.existsSync(args.file)) {
