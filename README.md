@@ -252,7 +252,7 @@ Options:
 
 ```
 
-To update an account password, use `change_passcode.js`:
+To update an account password, use the `update` command:
 
 ```
 > ethertron update new.acct
