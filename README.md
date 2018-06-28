@@ -12,12 +12,12 @@ npm i ethertron
 
 Each command is its own script.  Any command can be called with the option `--help` to display usage and options.  The available commands are:
 
-* create_acct.js
-* sign_tx.js
-* change_passcode.js
-* get_address.js
-* get_priv.js
-* hash_file.js
+* `create_acct.js`
+* `sign_tx.js`
+* `change_passcode.js`
+* `get_address.js`
+* `get_priv.js`
+* `hash_file.js`
 
 ### create an account
 
