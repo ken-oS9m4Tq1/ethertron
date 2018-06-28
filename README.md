@@ -252,7 +252,7 @@ Options:
 
 ```
 
-To update an account password, use the `update` command:
+To update an account passcode, use the `update` command:
 
 ```
 > ethertron update new.acct
