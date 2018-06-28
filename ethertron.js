@@ -32,7 +32,7 @@ function printHelp() {
   say('sign            - Sign a transaction.');
   say('getaddress      - Display the address of an account.');
   say('getkey          - Display the private key of an account.');
-  say('hash            - Get the hash of a file.');
+  say('hashfile        - Get the hash of a file.');
 
   say('\nUse the option --help with any command for specific instructons.');
 }
@@ -65,7 +65,7 @@ function main() {
     case 'gp':
       get_priv.main();
       break;
-    case 'hash':
+    case 'hashfile':
     case 'hf':
       hash_file.main();
       break;
