@@ -93,7 +93,9 @@ const constants = {
   'z' 
   ],
   // An ethereum rlp encoded transaction has the following properties, in this order.
-  txFields: ['nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'data', 'v', 'r', 's']
+  txFields: ['nonce', 'gasPrice', 'gasLimit', 'to', 'value', 'data', 'v', 'r', 's'],
+  // Index of the first command line argument, excluding identifiers.
+  argShift: 3,
 }
 
 

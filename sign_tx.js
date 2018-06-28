@@ -10,7 +10,7 @@ const et = require('./index');
 **
 */
 function printUsage() {
-  say('\nUsage:', path.basename(process.argv[0]), path.basename(process.argv[1]), '<txFile> <accountFile> [options]');
+  say('\nUsage:', path.basename(process.argv[1], '.js'), process.argv[2], '<txFile> <accountFile> [options]');
 }
 
 /* Print script help to screen.
@@ -38,8 +38,9 @@ function getArgs() {
   let args = new Object();
 
   // Required arguments.
-  args.txFile = process.argv[2];
-  args.file = process.argv[3];
+  const shift = et.consts.argShift;
+  args.txFile = process.argv[0 + shift];
+  args.file = process.argv[1 + shift];
 
   // Optional arguments.
   process.argv.forEach((arg, index) => {
@@ -553,5 +554,4 @@ async function main() {
 
 
 
-main();
-
+module.exports.main = main;

@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Manage ethereum accounts and generate transactions offline.",
   "main": "index.js",
+  "bin": { "ethertron": "ethertron.js" },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
