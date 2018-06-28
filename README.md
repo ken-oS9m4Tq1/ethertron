@@ -228,7 +228,7 @@ Signed transaction:
 
 ```
 
-The signed transaction can be broadcast from a geth node or a third-party utility such as <a href="https://etherscan.io/pushTx">etherscan.io/pushTx</a>.
+The signed transaction can be broadcast from a geth node or a third-party utility, e.g. <a href="https://etherscan.io/pushTx">etherscan.io/pushTx</a>.
 
 ### change an account passcode
 
