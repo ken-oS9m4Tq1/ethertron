@@ -8,9 +8,7 @@ Basic command line tools for managing ethereum accounts and generating transacti
 npm i -g ethertron
 ```
 
-### windows
-
-In windows, first install <a href=https://www.npmjs.com/package/windows-build-tools>windows-build-tools</a>, then `npm i -g ethertron`.
+In windows, you will need to first install <a href=https://www.npmjs.com/package/windows-build-tools>windows-build-tools</a>.
 
 ## command line interface
 
