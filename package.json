@@ -1,6 +1,6 @@
 {
   "name": "ethertron",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Manage ethereum accounts and generate transactions offline.",
   "main": "index.js",
   "bin": {
@@ -23,6 +23,13 @@
     "type": "git",
     "url": "git+https://github.com/ken-oyWs2vlG/ethertron.git"
   },
+  "keywords": [
+    "ethereum",
+    "transactions",
+    "offline",
+    "wallet",
+    "CLI"
+  ],
   "bugs": {
     "url": "https://github.com/ken-oyWs2vlG/ethertron/issues"
   },
