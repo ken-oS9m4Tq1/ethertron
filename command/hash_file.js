@@ -23,7 +23,6 @@ function printHelp() {
 
   say('\nOptions:');
   say('--help              - Displays this guide.');
-  say('--list              - Displays available hashes.');
   say('--hash <hash>       - Determines the hash algorithm.');
   say('--iter <int>        - Determines the number of times the hash is applied.');
 }
