@@ -25,6 +25,7 @@ sign            - Sign a transaction.
 getaddress      - Display the address of an account.
 getkey          - Display the private key of an account.
 hashfile        - Get the hash of a file.
+list            - Display a list.
 
 Use the option --help with any command for specific instructons.
 
@@ -91,7 +92,7 @@ New account successfully created!
 
 ```
 
-When obtaining a private key from a file, the script will ignore any whitespace.  The `0x` header is optional.
+When obtaining a private key from a file, the program will ignore any whitespace.  Including a `0x` header is optional.
 
 In addition to a password, an account can optionally be secured with an arbitrary keyfile that acts as a second authentication factor.  The password and keyfile are combined to form a composite passcode which is then sent to a key derivation function.  An account secured with a keyfile will be inaccessible if the keyfile is lost.  To specify a keyfile, use the `--keyfile` option:
 
@@ -179,7 +180,7 @@ const txParams = {
 module.exports = txParams;
 ```
 
-Modify each field of the transaction file as desired.  The `to` address will be rejected if its <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-55.md">checksum</a> is invalid.  To circumvent the checksum, use all upper-case or all lower-case letters.
+Modify each field of the transaction file as desired.  The `to` address will be rejected if its <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-55.md">checksum</a> is invalid.  To circumvent the checksum, use all upper-case or all lower-case letters.  To display a list of acceptable units or character encodings use `ethertron list units` or `ethertron list enc`.
 
 ### sign a transaction
 
@@ -328,7 +329,6 @@ Usage: ethertron hashfile <file> [options]
 
 Options:
 --help              - Displays this guide.
---list              - Displays available hashes.
 --hash <hash>       - Determines the hash algorithm.
 --iter <int>        - Determines the number of times the hash is applied.
 
@@ -404,6 +404,8 @@ sha512 hash of file secret.key:
 0xbba1994e3e215cb698cbd3090f199fea85d33fd02c2e6d3cabcf9fcd258c9636b748d3f7ee6a3f56dfdfdff18c88e4b5b7f09424fdf2e1e602e9ae7a8e524ac1
 
 ```
+
+To display a list of available hashes use `ethertron list hashes`.
 
 ## license
 
