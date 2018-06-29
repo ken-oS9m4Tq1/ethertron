@@ -186,7 +186,7 @@ function parseArgs(args) {
 }
 
 function parseTxParams(txParams, txFile) {
-  let errHeader = '\nIn transaction parameter file: ' + txFile;
+  let errHeader = '\nIn transaction file: ' + txFile;
 
   //========================================================
   //===============================Validate object structure
@@ -274,7 +274,7 @@ function parseTxParams(txParams, txFile) {
     say(errHeader);
     if (valueUnitsErr) say(valueUnitsErr);
     if (gasPriceUnitsErr) say(gasPriceUnitsErr);
-    printUnitMap();
+    et.printUnitMap();
     return false;
   }
 
@@ -318,7 +318,7 @@ function parseTxParams(txParams, txFile) {
   if (!et.isOnList(txParams.dataEnc, et.consts.encoding)) {
     say(errHeader);
     say('Invalid character encoding:', txParams.dataEnc);
-    printAvailableEnc();
+    et.printAvailableEnc();
     return false;
   }
 
@@ -345,60 +345,6 @@ function inspectNumParam(param, name, decimalPointOk = false) {
   }
 
   return errStr;
-}
-
-/* Print a list of ethereum units.
-**
-*/
-function printUnitMap() {
-  say('\nAcceptable units:\n')
-
-  // Get the list of units.
-  let unit = Object.keys(et.consts.unitMap);
-
-  // Print units in neat columns alongside the unit value in wei.
-  for (let i = 0; i < unit.length; i++) {
-    // Get unit name and wei equivalent.
-    let unitName = unit[i];
-    let weiValue = et.consts.unitMap[unit[i]];
-
-    // Express the wei value in scientific notation.
-    let weiValueSci;
-    if (weiValue == '0' || weiValue == '1') {
-      weiValueSci = weiValue;
-    }
-    else {
-      let pow = weiValue.length - 1;
-      weiValueSci = '1e+' + pow.toString();
-    }
-
-    // Construct the output for the current table row.
-    const col = 15;
-    const pad = 5;
-    let formattedWeiValue = weiValueSci.padStart(pad);
-    if (i == 0) formattedWeiValue += ' wei'; // label wei value units in the first row only.
-    let formattedUnitName = '\'' + unitName + '\'';
-    formattedUnitName = formattedUnitName.padEnd(col);
-    let row = formattedUnitName + formattedWeiValue;
-
-    // Highlight the most common units.
-    if (unitName == 'wei' || unitName == 'gwei' || unitName == 'ether') {
-      row = '\x1b[92m' + row + '\x1b[0m';
-    }
-
-    say(row);
-  }
-}
-
-/* Print a list of Buffer-friendly character encodings.
-**
-*/
-function printAvailableEnc() {
-  say('\nAcceptable character encodings:\n');
-
-  for (let i = 0; i < et.consts.encoding.length; i++) {
-    say('\'' + et.consts.encoding[i] + '\'');
-  }
 }
 
 /* Convert the values from txParams into hex, in preparation for RLP encoding and serialization.

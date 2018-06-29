@@ -59,7 +59,7 @@ async function parseArgs(args) {
   }
 
   if (args.list) {
-    displayHashes();
+    et.printHashes();
     return false;
   }
 
@@ -105,7 +105,7 @@ async function parseArgs(args) {
 
   // If no hash (or an invalid hash) was specified in the command line, the user selects a hash.
   if (args.hash == undefined) {
-    displayHashes();
+    et.printHashes();
     say();
     while (!args.hash) {
       args.hash = hashArr[await et.ask('Index number of the desired algorithm: ')];
@@ -114,21 +114,6 @@ async function parseArgs(args) {
 
   // If you have made it this far, the arguments are good.
   return true;
-}
-
-
-/* Display all hash functions available for use in the crypto library.
-** Each function is displayed alongside its array index.
-**
-*/
-function displayHashes() {
-  say('\nAvailable hashes:\n');
-
-  const col = 3;
-  let hashArr = crypto.getHashes();
-  hashArr.forEach((hash, index) => {
-    say(index.toString().padEnd(col), hash);
-  })
 }
 
 async function main() {

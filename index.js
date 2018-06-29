@@ -100,6 +100,31 @@ function sayWrongPassword(accountFile) {
   say('\nIncorrect password and/or keyfile for account ' + accountFile + '.');
 }
 
+/* Display all hash functions available for use in the crypto library.
+** Each function is displayed alongside its array index.
+**
+*/
+function printHashes() {
+  say('\nAvailable hashes:\n');
+
+  const col = 3;
+  let hashArr = crypto.getHashes();
+  hashArr.forEach((hash, index) => {
+    say(index.toString().padEnd(col), hash);
+  })
+}
+
+/* Print a list of Buffer-friendly character encodings.
+**
+*/
+function printAvailableEnc() {
+  say('\nAcceptable character encodings:\n');
+
+  for (let i = 0; i < consts.encoding.length; i++) {
+    say('\'' + consts.encoding[i] + '\'');
+  }
+}
+
 /* Check if an item matches at least one element of a given array.
 **
 ** @param {*} item - The item to test.
@@ -179,6 +204,49 @@ function toWei(val, units) {
   let valueInWei = integerPart + fractionalPart.slice(0, n);
 
   return valueInWei;
+}
+
+/* Print a list of ethereum units.
+**
+*/
+function printUnitMap() {
+  say('\nAcceptable units:\n')
+
+  // Get the list of units.
+  let unit = Object.keys(consts.unitMap);
+
+  // Print units in neat columns alongside the unit value in wei.
+  for (let i = 0; i < unit.length; i++) {
+    // Get unit name and wei equivalent.
+    let unitName = unit[i];
+    let weiValue = consts.unitMap[unit[i]];
+
+    // Express the wei value in scientific notation.
+    let weiValueSci;
+    if (weiValue == '0' || weiValue == '1') {
+      weiValueSci = weiValue;
+    }
+    else {
+      let pow = weiValue.length - 1;
+      weiValueSci = '1e+' + pow.toString();
+    }
+
+    // Construct the output for the current table row.
+    const col = 15;
+    const pad = 5;
+    let formattedWeiValue = weiValueSci.padStart(pad);
+    if (i == 0) formattedWeiValue += ' wei'; // label wei value units in the first row only.
+    let formattedUnitName = '\'' + unitName + '\'';
+    formattedUnitName = formattedUnitName.padEnd(col);
+    let row = formattedUnitName + formattedWeiValue;
+
+    // Highlight the most common units.
+    if (unitName == 'wei' || unitName == 'gwei' || unitName == 'ether') {
+      row = '\x1b[92m' + row + '\x1b[0m';
+    }
+
+    say(row);
+  }
 }
 
 //Core functions>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -750,9 +818,12 @@ module.exports = {
   askSecret:            askSecret,
   askPassword:          askPassword,
   sayWrongPassword:     sayWrongPassword,
+  printHashes:          printHashes,
+  printAvailableEnc:    printAvailableEnc,
   isOnList:             isOnList,
   getObj:               getObj,
   toWei:                toWei,
+  printUnitMap:         printUnitMap,
   writeObj:             writeObj,
   hashFile:             hashFile,
   isValidPrivateKey:    isValidPrivateKey,
