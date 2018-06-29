@@ -42,19 +42,19 @@ function main() {
 
   switch (command) {
     case 'create':
-    case 'ca':
+    case 'c':
       create_acct.main();
       break;
     case 'template':
-    case 'gt':
+    case 't':
       get_template.main();
       break;
     case 'sign':
-    case 'st':
+    case 's':
       sign_tx.main();
       break;
     case 'update':
-    case 'cp':
+    case 'u':
       change_passcode.main();
       break;
     case 'getaddress':
@@ -62,7 +62,7 @@ function main() {
       get_address.main();
       break;
     case 'getkey':
-    case 'gp':
+    case 'gk':
       get_priv.main();
       break;
     case 'hashfile':
