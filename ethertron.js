@@ -11,6 +11,7 @@ const change_passcode = require('./command/change_passcode');
 const get_address = require('./command/get_address');
 const get_priv = require('./command/get_priv');
 const hash_file = require('./command/hash_file');
+const list = require('./command/list');
 
 /* Print script usage to screen.
 **
@@ -33,6 +34,7 @@ function printHelp() {
   say('getaddress      - Display the address of an account.');
   say('getkey          - Display the private key of an account.');
   say('hashfile        - Get the hash of a file.');
+  say('list            - Display a list.');
 
   say('\nUse the option --help with any command for specific instructons.');
 }
@@ -68,6 +70,10 @@ function main() {
     case 'hashfile':
     case 'hf':
       hash_file.main();
+      break;
+    case 'list':
+    case 'l':
+      list.main();
       break;
     default:
       printHelp();

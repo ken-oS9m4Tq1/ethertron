@@ -104,13 +104,14 @@ function sayWrongPassword(accountFile) {
 ** Each function is displayed alongside its array index.
 **
 */
-function printHashes() {
+function printHashes(showIndicies = true) {
   say('\nAvailable hashes:\n');
 
   const col = 3;
   let hashArr = crypto.getHashes();
   hashArr.forEach((hash, index) => {
-    say(index.toString().padEnd(col), hash);
+    if (showIndicies) say(index.toString().padEnd(col), hash);
+    else say(hash);
   })
 }
 
