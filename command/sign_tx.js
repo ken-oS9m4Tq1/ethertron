@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const numstr = require('utils-numstr');
-const et = require('./index');
+const et = require('../index');
 
 /* Print script usage to screen.
 **

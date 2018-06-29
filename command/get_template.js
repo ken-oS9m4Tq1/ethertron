@@ -3,7 +3,7 @@ const say = console.log;
 const fs = require('fs');
 const path = require('path');
 
-const et = require('./index.js')
+const et = require('../index.js')
 
 /* Print script usage to screen.
 **

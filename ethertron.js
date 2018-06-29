@@ -4,13 +4,13 @@ const say = console.log;
 
 const path = require('path');
 
-const create_acct = require('./create_acct');
-const get_template = require('./get_template');
-const sign_tx = require('./sign_tx');
-const change_passcode = require('./change_passcode');
-const get_address = require('./get_address');
-const get_priv = require('./get_priv');
-const hash_file = require('./hash_file');
+const create_acct = require('./command/create_acct');
+const get_template = require('./command/get_template');
+const sign_tx = require('./command/sign_tx');
+const change_passcode = require('./command/change_passcode');
+const get_address = require('./command/get_address');
+const get_priv = require('./command/get_priv');
+const hash_file = require('./command/hash_file');
 
 /* Print script usage to screen.
 **
