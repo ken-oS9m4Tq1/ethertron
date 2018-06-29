@@ -80,7 +80,7 @@ async function main() {
   }
 
   // Copy the tx_params file.
-  fs.writeFileSync(args.file, fs.readFileSync(path.join(__dirname, '../tx_params.js')));
+  fs.writeFileSync(args.file, fs.readFileSync(path.join(__dirname, 'tx_params.js')));
 
   say('\nTemplate file: ' + args.file);
   say('\nTransaction template successfully created!');
