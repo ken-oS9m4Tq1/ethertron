@@ -23,9 +23,7 @@ function printUsage() {
 /* Print script help to screen.
 **
 */
-function printHelp() {
-  printUsage();
-
+function printCommands() {
   say('\nAvailable commands:');
   say('create          - Create a new account.');
   say('update          - Update the passcode for an account.');
@@ -75,8 +73,15 @@ function main() {
     case 'l':
       list.main();
       break;
+    case '--help':
+    case undefined:
+      printUsage();
+      printCommands();
+      say();
+      break;
     default:
-      printHelp();
+      say('\nInvalid command: ' + command);
+      printCommands();
       say();
   }
 }
