@@ -1,7 +1,7 @@
 const say = console.log;
 
 const readline = require('readline');
-var Writable = require('stream').Writable;
+const Writable = require('stream').Writable;
 const fs = require('fs');
 const crypto = require('crypto');
 const path = require('path');
