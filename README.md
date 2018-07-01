@@ -242,16 +242,16 @@ Usage: ethertron update <accountFile> [options]
 
 Options:
 --help              - Displays this guide.
---passnew <string>  - Specify new account password.
---passold <string>  - Specify current account password.
---keyfilenew <file> - Specify new keyfile.
---keyfileold <file> - Specify current keyfile.
---nopassnew         - Force empty password for new account.
---nopassold         - Force empty password for current account.
+--pass <string>     - Specify current account password.
+--passnew <string>  - Specify updated account password.
+--keyfile <file>    - Specify current account keyfile.
+--keyfilenew <file> - Specify updated account keyfile.
+--nopass            - Force empty password for current account.
+--nopassnew         - Force empty password for updated account.
 --filenew <file>    - Save the account to a new file after updating the passcode. The original file will not be deleted.
 --verbose           - Enable verbose mode. Warning: verbose mode will display sensitive information.
---iterold <int>     - Specify the number of hash iterations for the old keyfile.
---iternew <int>     - Specify the number of hash iterations for the new keyfile.
+--iter <int>        - Specify the number of hash iterations for the current keyfile.
+--iternew <int>     - Specify the number of hash iterations for the updated keyfile.
 
 ```
 

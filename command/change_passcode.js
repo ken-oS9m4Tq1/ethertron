@@ -21,16 +21,16 @@ function printHelp() {
 
   say('\nOptions:');
   say('--help              - Displays this guide.');
-  say('--passnew <string>  - Specify new account password.');
-  say('--passold <string>  - Specify current account password.');
-  say('--keyfilenew <file> - Specify new keyfile.');
-  say('--keyfileold <file> - Specify current keyfile.');
-  say('--nopassnew         - Force empty password for new account.');
-  say('--nopassold         - Force empty password for current account.');
+  say('--pass <string>     - Specify current account password.');
+  say('--passnew <string>  - Specify updated account password.');
+  say('--keyfile <file>    - Specify current account keyfile.');
+  say('--keyfilenew <file> - Specify updated account keyfile.');
+  say('--nopass            - Force empty password for current account.');
+  say('--nopassnew         - Force empty password for updated account.');
   say('--filenew <file>    - Save the account to a new file after updating the passcode. The original file will not be deleted.');
   say('--verbose           - Enable verbose mode. Warning: verbose mode will display sensitive information.');
-  say('--iterold <int>     - Specify the number of hash iterations for the old keyfile.');
-  say('--iternew <int>     - Specify the number of hash iterations for the new keyfile.');
+  say('--iter <int>        - Specify the number of hash iterations for the current keyfile.');
+  say('--iternew <int>     - Specify the number of hash iterations for the updated keyfile.');
 }
 
 
@@ -50,16 +50,16 @@ function getArgs() {
   // Optional arguments.
   process.argv.forEach((arg, index) => {
     if (arg == '--help') args.help = true;
-    else if (arg == '--nopassnew' || arg == '-n') args.updated.nopass = true;
-    else if (arg == '--nopassold' || arg == '-N') args.current.nopass = true;
+    else if (arg == '--nopassold' || arg == '--nopass' || arg == '-n') args.current.nopass = true;
+    else if (arg == '--nopassnew' || arg == '-N') args.updated.nopass = true;
     else if (arg == '--verbose' || arg == '-v' || arg == '-V') args.verbose = true;
-    else if (arg == '--passnew' || arg == '-p') args.updated.password = process.argv[index + 1];
-    else if (arg == '--passold' || arg == '-P') args.current.password = process.argv[index + 1];
+    else if (arg == '--passold' || arg == '--pass' || arg == '-p') args.current.password = process.argv[index + 1];
+    else if (arg == '--passnew' || arg == '-P') args.updated.password = process.argv[index + 1];
+    else if (arg == '--keyfileold' || arg == '--keyfile' || arg == '-k') args.current.keyfile = process.argv[index + 1];
+    else if (arg == '--keyfilenew' || arg == '-K') args.updated.keyfile = process.argv[index + 1];
     else if (arg == '--filenew' || arg == '-f') args.updated.file = process.argv[index + 1];
-    else if (arg == '--iternew' || arg == '-i') args.updated.iter = process.argv[index + 1];
-    else if (arg == '--iterold' || arg == '-I') args.current.iter = process.argv[index + 1];
-    else if (arg == '--keyfilenew' || arg == '-k') args.updated.keyfile = process.argv[index + 1];
-    else if (arg == '--keyfileold' || arg == '-K') args.current.keyfile = process.argv[index + 1];
+    else if (arg == '--iterold' || arg == '--iter' || arg == '-i') args.current.iter = process.argv[index + 1];
+    else if (arg == '--iternew' || arg == '-I') args.updated.iter = process.argv[index + 1];
   })
 
   return args;
